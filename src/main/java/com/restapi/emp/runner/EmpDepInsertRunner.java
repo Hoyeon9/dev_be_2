@@ -15,11 +15,13 @@ import java.util.List;
 @Component
 @Profile("local")
 public class EmpDepInsertRunner implements ApplicationRunner {
-    @Autowired
-    DepartmentRepository departmentRepository;
+    final DepartmentRepository departmentRepository;
+    final EmployeeRepository employeeRepository;
 
-    @Autowired
-    EmployeeRepository employeeRepository;
+    public EmpDepInsertRunner(EmployeeRepository employeeRepository, DepartmentRepository departmentRepository) {
+        this.employeeRepository = employeeRepository;
+        this.departmentRepository = departmentRepository;
+    }
 
     @Override
     public void run(ApplicationArguments args) throws Exception {
