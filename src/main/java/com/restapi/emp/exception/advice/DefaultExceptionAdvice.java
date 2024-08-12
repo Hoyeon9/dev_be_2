@@ -3,6 +3,7 @@ package com.restapi.emp.exception.advice;
 import com.restapi.emp.exception.ErrorObject;
 import com.restapi.emp.exception.ResourceNotFoundException;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.HttpStatusCode;
 import org.springframework.http.ProblemDetail;
@@ -37,6 +38,17 @@ public class DefaultExceptionAdvice {
     protected ProblemDetail handleException(ResourceNotFoundException e) {
         ProblemDetail problemDetail = ProblemDetail.forStatus(e.getHttpStatus());
         problemDetail.setTitle("Not Found");
+        problemDetail.setDetail(e.getMessage());
+        problemDetail.setProperty("errorCategory", "Generic");
+        problemDetail.setProperty("timestamp", Instant.now());
+        return problemDetail;
+    }
+
+    @ExceptionHandler(DataIntegrityViolationException.class)
+    protected ProblemDetail handleException(DataIntegrityViolationException e) {
+        //Http Status code 422
+        ProblemDetail problemDetail = ProblemDetail.forStatus(HttpStatus.UNPROCESSABLE_ENTITY);
+        problemDetail.setTitle("Duplication Error");
         problemDetail.setDetail(e.getMessage());
         problemDetail.setProperty("errorCategory", "Generic");
         problemDetail.setProperty("timestamp", Instant.now());
