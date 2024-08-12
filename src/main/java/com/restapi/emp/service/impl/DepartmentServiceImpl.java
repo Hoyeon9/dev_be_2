@@ -25,20 +25,23 @@ public class DepartmentServiceImpl implements DepartmentService {
         return DepartmentMapper.mapToDepartmentDto(savedDepartment);
     }
 
+
     @Override
     public DepartmentDto getDepartmentById(Long departmentId) {
-        Department department = getDepartment(departmentId);
+        //Department department = getDepartment(departmentId);
+        Department department = EmpDeptCommon.getDepartment(departmentId, departmentRepository);
         return DepartmentMapper.mapToDepartmentDto(department);
     }
 
-    private Department getDepartment(Long departmentId) {
-        String errMsg = "Department is not exists with a given id: " + departmentId;
-        return departmentRepository.findById(departmentId)
-                .orElseThrow(() ->
-                        new ResourceNotFoundException(errMsg, HttpStatus.NOT_FOUND)
-                )
-        ;
-    }
+    //     EmpDeptCommon의 method로 대체
+//    private Department getDepartment(Long departmentId) {
+//        String errMsg = "Department is not exists with a given id: " + departmentId;
+//        return departmentRepository.findById(departmentId)
+//                .orElseThrow(() ->
+//                        new ResourceNotFoundException(errMsg, HttpStatus.NOT_FOUND)
+//                )
+//        ;
+//    }
 
     @Override
     public List<DepartmentDto> getAllDepartments() {
@@ -52,7 +55,7 @@ public class DepartmentServiceImpl implements DepartmentService {
 
     @Override
     public DepartmentDto updateDepartment(Long departmentId, DepartmentDto updatedDepartment) {
-        Department department = getDepartment(departmentId);
+        Department department = EmpDeptCommon.getDepartment(departmentId, departmentRepository);
         // Dirty check
         if (updatedDepartment.getDepartmentName() != null)
             department.setDepartmentName(updatedDepartment.getDepartmentName());
@@ -66,7 +69,7 @@ public class DepartmentServiceImpl implements DepartmentService {
 
     @Override
     public void deleteDepartment(Long departmentId) {
-        Department department = getDepartment(departmentId);
+        Department department = EmpDeptCommon.getDepartment(departmentId, departmentRepository);
 
         departmentRepository.delete(department);
     }
