@@ -13,7 +13,7 @@ import org.springframework.stereotype.Component;
 import java.util.List;
 
 @Component
-@Profile("prod")
+@Profile("blocked")
 public class EmpDepInsertRunner implements ApplicationRunner {
     final DepartmentRepository departmentRepository;
     final EmployeeRepository employeeRepository;
