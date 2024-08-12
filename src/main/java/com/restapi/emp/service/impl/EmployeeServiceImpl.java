@@ -110,6 +110,6 @@ public class EmployeeServiceImpl implements EmployeeService {
 //                        HttpStatus.NOT_FOUND)
 //        );
 
-        employeeRepository.deleteById(employeeId);
+        employeeRepository.delete(employee);
     }
 }
