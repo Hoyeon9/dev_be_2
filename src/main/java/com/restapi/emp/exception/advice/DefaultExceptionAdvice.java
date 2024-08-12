@@ -48,8 +48,9 @@ public class DefaultExceptionAdvice {
     protected ProblemDetail handleException(DataIntegrityViolationException e) {
         //Http Status code 422
         ProblemDetail problemDetail = ProblemDetail.forStatus(HttpStatus.UNPROCESSABLE_ENTITY);
-        problemDetail.setTitle("Duplication Error");
-        problemDetail.setDetail(e.getMessage());
+        problemDetail.setTitle("Data Duplication Error");
+        problemDetail.setDetail("요청하신 데이터에 중복되어 등록될 수 없는 값이 있습니다.");
+        problemDetail.setProperty("errorMsg", e.getMessage());
         problemDetail.setProperty("errorCategory", "Generic");
         problemDetail.setProperty("timestamp", Instant.now());
         return problemDetail;

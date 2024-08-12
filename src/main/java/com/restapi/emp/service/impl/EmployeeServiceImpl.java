@@ -15,6 +15,8 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 
+import static com.restapi.emp.service.impl.EmpDeptCommon.getEmployee;
+
 @Service
 @Transactional
 @RequiredArgsConstructor
@@ -44,11 +46,7 @@ public class EmployeeServiceImpl implements EmployeeService {
 
     @Override
     public EmployeeDto getEmployeeById(Long employeeId) {
-        Employee employee = employeeRepository.findById(employeeId)
-                .orElseThrow(() ->
-                        new ResourceNotFoundException(
-                                "Employee is not exists with given id : " + employeeId,
-                                HttpStatus.NOT_FOUND));
+        Employee employee = getEmployee(employeeId, employeeRepository);
 
         return EmployeeMapper.mapToEmployeeDto(employee);
     }
