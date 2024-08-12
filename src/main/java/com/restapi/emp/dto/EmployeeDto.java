@@ -1,6 +1,7 @@
 package com.restapi.emp.dto;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
+import jakarta.validation.constraints.Digits;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotEmpty;
@@ -27,6 +28,7 @@ public class EmployeeDto {
     private String email;
 
     @NotBlank(message = "Department ID is mandatory.")
+    @Digits(integer = 3, fraction = 0, message = "Not a valid format.")
     private Long departmentId;
 
     private DepartmentDto departmentDto;
