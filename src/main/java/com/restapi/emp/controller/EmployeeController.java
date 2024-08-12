@@ -3,6 +3,7 @@ package com.restapi.emp.controller;
 import com.restapi.emp.dto.EmployeeDto;
 import com.restapi.emp.service.EmployeeService;
 import jakarta.validation.Valid;
+import lombok.AllArgsConstructor;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -11,19 +12,20 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
+@AllArgsConstructor
 @RestController
 @RequestMapping("/api/employees")
-@RequiredArgsConstructor
+//@RequiredArgsConstructor
 public class EmployeeController {
 
     private final EmployeeService employeeService;
 
     // Build Add Employee REST API
     @PostMapping
-    public ResponseEntity<?> createEmployee(@RequestBody @Valid EmployeeDto employeeDto, Errors errors){
-        if(errors.hasErrors()){
-            return ResponseEntity.badRequest().body(errors.getAllErrors());
-        }
+    public ResponseEntity<?> createEmployee(@RequestBody @Valid EmployeeDto employeeDto){
+//        if(errors.hasErrors()){
+//            return ResponseEntity.badRequest().body(errors);
+//        }
 
         EmployeeDto savedEmployee = employeeService.createEmployee(employeeDto);
         return new ResponseEntity<>(savedEmployee, HttpStatus.CREATED);

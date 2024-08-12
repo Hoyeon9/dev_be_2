@@ -20,15 +20,14 @@ public class EmployeeDto {
     @NotEmpty(message = "Firstname is mandatory.")
     private String firstName;
 
-    @NotEmpty(message = "Lastname is mandatory.")
+    @NotEmpty//(message = "Lastname is mandatory.")
     private String lastName;
 
     @NotBlank(message = "Email is mandatory.")
     @Email
     private String email;
 
-    @NotBlank(message = "Department ID is mandatory.")
-    @Digits(integer = 3, fraction = 0, message = "Not a valid format.")
+    @Digits(integer = 3, fraction = 0, message = "Department ID is mandatory.")
     private Long departmentId;
 
     private DepartmentDto departmentDto;
