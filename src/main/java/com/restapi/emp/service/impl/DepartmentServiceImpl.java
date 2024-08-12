@@ -54,8 +54,10 @@ public class DepartmentServiceImpl implements DepartmentService {
     public DepartmentDto updateDepartment(Long departmentId, DepartmentDto updatedDepartment) {
         Department department = getDepartment(departmentId);
         // Dirty check
-        department.setDepartmentName(updatedDepartment.getDepartmentName());
-        department.setDepartmentDescription(updatedDepartment.getDepartmentDescription());
+        if (updatedDepartment.getDepartmentName() != null)
+            department.setDepartmentName(updatedDepartment.getDepartmentName());
+        if (updatedDepartment.getDepartmentDescription() != null)
+            department.setDepartmentDescription(updatedDepartment.getDepartmentDescription());
 
         //Department savedDepartment = departmentRepository.save(department);
 
